@@ -1,0 +1,15 @@
+package generate;
+
+import org.junit.Test;
+
+import java.io.IOException;
+
+public class PojoFactoryTest {
+
+    @Test
+    public void generateSchema() throws IOException {
+        String json = "{\"type\": \"object\", \"definitions\": {\"top\": {\"type\": \"object\", \"javaInterfaces\": [\"example.jsonschema.TopModel\"], \"definitions\": {\"metaModelOne\": {\"title\": \"Meta model one\", \"type\": \"object\", \"additionalProperties\": false, \"properties\": {\"arbitrary\": {\"type\": \"string\"}, \"stringArr\": {\"type\": \"array\", \"minItems\": 1, \"items\": {\"type\": \"string\"}}}, \"required\": [\"stringArr\"], \"existingJavaType\": \"example.jsonschema.metadata.MetaModelOne\"}, \"metaModelTwo\": {\"title\": \"Meta model two\", \"type\": \"object\", \"additionalProperties\": false, \"properties\": {\"integerOne\": {\"type\": \"integer\"}, \"integerTwo\": {\"type\": \"integer\"}, \"someString\": {\"type\": \"string\"}}, \"existingJavaType\": \"example.jsonschema.metadata.MetaModelTwo\"}, \"metaModelThree\": {\"title\": \"Meta model three\", \"type\": \"object\", \"additionalProperties\": false, \"properties\": {\"value\": {\"type\": \"string\", \"enum\": [\"ONE\", \"TWO\"]}}, \"existingJavaType\": \"example.jsonschema.metadata.MetaModelThree\"}, \"metaModelFour\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}, \"middle\": {\"type\": \"object\", \"description\": \"Middle model.\", \"required\": [\"metaModelOne\", \"metaModelFour\"], \"additionalProperties\": false, \"javaInterfaces\": [\"example.jsonschema.MiddleModel\"], \"definitions\": {\"inner\": {\"type\": \"object\", \"description\": \"Inner model.\", \"javaInterfaces\": [\"example.jsonschema.InnerModel\"], \"properties\": {\"innerId\": {\"type\": \"string\"}, \"innerType\": {\"type\": \"string\", \"default\": \"INNER\", \"enum\": [\"INNER\"]}, \"value\": {\"type\": \"string\"}, \"metaModelOne\": {\"$ref\": \"#/definitions/top/definitions/metaModelOne\"}, \"metaModelTwo\": {\"$ref\": \"#/definitions/top/definitions/metaModelTwo\"}, \"metaModelThree\": {\"$ref\": \"#/definitions/top/definitions/metaModelThree\"}, \"metaModelFour\": {\"$ref\": \"#/definitions/top/definitions/metaModelFour\"}}, \"javaType\": \"example.jsonschema.model.top.middle.inner.Inner\"}}, \"properties\": {\"topType\": {\"type\": \"string\", \"default\": \"TOP\", \"enum\": [\"TOP\"]}, \"middleName\": {\"type\": \"string\", \"default\": \"MIDDLE\", \"enum\": [\"MIDDLE\"]}, \"middleType\": {\"type\": \"string\", \"default\": \"MIDDLE\", \"enum\": [\"MIDDLE\"]}, \"middleId\": {\"type\": \"string\"}, \"inner\": {\"$ref\": \"#/definitions/top/definitions/middle/definitions/inner\"}}, \"javaType\": \"example.jsonschema.model.top.middle.Middle\"}}, \"properties\": {\"topId\": {\"type\": \"string\"}, \"middle\": {\"type\": \"array\", \"items\": {\"$ref\": \"#/definitions/top/definitions/middle\"}}}, \"javaType\": \"example.jsonschema.model.top.Top\"}}, \"properties\": {\"top\": {\"$ref\": \"#/definitions/top\"}}, \"javaInterfaces\": [\"example.jsonschema.ModelWrapper\"]}";
+        System.out.println(json);
+        PojoFactory.generateSchema(json);
+    }
+}
